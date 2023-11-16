@@ -188,8 +188,75 @@
                         <h5 class="item-title mbr-fonts-style display-7"><strong>50 Commends</strong></h5>
                         <h6 class="item-subtitle mbr-fonts-style display-7"><em>Rp 82.000 IDR</em></h6>
                         <p class="mbr-text mbr-fonts-style mt-2 display-4"><strong> </strong> <br><strong>✓</strong> 50 commends each category<br><strong>✓</strong> Instant Delivery<br><strong>✓</strong> Works 24/7<br><strong>✓</strong> More information in the description (Press Purchase now)</p>
-                        <a class="mayar-button iframe-lightbox-link" href="https://sergev-pavlo.mayar.link/pl/50-commends-cs2?iframe=true" data-padding-bottom="30%" data-scrolling="true"><span></span>Beli Sekarang</a>
-                        <script type="text/javascript" src="https://pub-fa933e278fb7467aa20592e0a61f5082.r2.dev/mayar-new-min.js"></script>
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Midtrans Integration</title>
+                            <style>
+                                /* Gaya untuk tombol pembelian */
+                                #beliSekarang {
+                                    display: inline-block;
+                                    background-color: #4CAF50;
+                                    color: #ffffff;
+                                    padding: 15px 20px;
+                                    text-align: center;
+                                    text-decoration: none;
+                                    font-size: 16px;
+                                    cursor: pointer;
+                                    border-radius: 5px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <!-- Tombol pembelian -->
+                            <button id="beliSekarang">Beli Sekarang</button>
+                        
+                            <!-- Skrip Midtrans Snap SDK -->
+                            <script src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-h97iW7W2QkU0pgPX"></script>
+                        
+                            <script type="text/javascript">
+                                document.getElementById('beliSekarang').addEventListener('click', async function () {
+                                    try {
+                                        // Gantilah dengan logika Anda untuk membuat pesanan dan mendapatkan Order Token dari sisi server
+                                        const orderTokenResponse = await fetch('/create_order', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            // Gantilah dengan data yang diperlukan untuk membuat pesanan
+                                            body: JSON.stringify({
+                                                orderId: 'CSGO21700098259162',
+                                                grossAmount: 100000, // Gantilah dengan jumlah total pembelian
+                                            }),
+                                        });
+                        
+                                        if (!orderTokenResponse.ok) {
+                                            throw new Error('Failed to create order token');
+                                        }
+                        
+                                        const orderTokenData = await orderTokenResponse.json();
+                                        const orderToken = orderTokenData.orderToken;
+                        
+                                        // Konfigurasi pembayaran menggunakan Midtrans Snap
+                                        const snapConfig = {
+                                            clientKey: "Mid-client-h97iW7W2QkU0pgPX",
+                                            orderId: 'CSGO21700098259162',
+                                            // ... (konfigurasi lainnya)
+                                        };
+                        
+                                        // Memanggil fungsi pembayaran Midtrans Snap
+                                        snap.pay(orderToken, snapConfig);
+                                    } catch (error) {
+                                        console.error('Error:', error.message);
+                                        // Gantilah dengan logika Anda untuk menangani kesalahan
+                                    }
+                                });
+                            </script>
+                        </body>
+                        </html>
+                        
                     </div>
 
                 </div>
